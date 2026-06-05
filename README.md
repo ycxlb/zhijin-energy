@@ -1,5 +1,11 @@
 # 枝晋能源太阳能控制器 - Home Assistant 自定义组件
 
+[![GH-release](https://img.shields.io/github/v/release/dckiller51/bodymiscale.svg?style=flat-square)](https://github.com/ycxlb/zhijin-energy)
+[![GH-downloads](https://img.shields.io/github/downloads/dckiller51/bodymiscale/total?style=flat-square)](https://github.com/ycxlb/zhijin-energy)
+[![GH-last-commit](https://img.shields.io/github/last-commit/dckiller51/bodymiscale.svg?style=flat-square)](https://github.comycxlb/zhijin-energy)
+[![GH-code-size](https://img.shields.io/github/languages/code-size/dckiller51/bodymiscale.svg?color=red&style=flat-square)](https://github.com/ycxlb/zhijin-energy)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs)
+
 基于抓包数据逆向开发的 Home Assistant 第三方集成，支持枝晋能源(Zhijin Energy)太阳能控制器的接入。
 
 ## 功能特性
