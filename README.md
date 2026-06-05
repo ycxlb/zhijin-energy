@@ -1,6 +1,6 @@
 # 枝晋能源太阳能控制器 - Home Assistant 自定义组件
 
-[![GH-release](https://img.shields.io/github/v/release/ycxlb/zhijin-energy.svg?style=flat-square&color=blue)](https://github.com/ycxlb/zhijin-energy/releases)
+[![release](https://img.shields.io/github/v/release/ycxlb/zhijin-energy?style=flat-square&label=release)](https://github.com/ycxlb/zhijin-energy/releases)
 [![GH-downloads](https://img.shields.io/github/downloads/ycxlb/zhijin-energy/total?style=flat-square)](https://github.com/ycxlb/zhijin-energy/releases)
 [![GH-last-commit](https://img.shields.io/github/last-commit/ycxlb/zhijin-energy.svg?style=flat-square)](https://github.com/ycxlb/zhijin-energy/commits/main)
 [![GH-code-size](https://img.shields.io/github/languages/code-size/ycxlb/zhijin-energy.svg?color=red&style=flat-square)](https://github.com/ycxlb/zhijin-energy)
