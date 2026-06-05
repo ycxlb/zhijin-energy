@@ -50,7 +50,27 @@ ws://device.gz529.com
 1. 下载本仓库代码
 2. 将 `custom_components/zhijin_energy/` 复制到您的 Home Assistant `config/custom_components/` 目录
 3. 重启 Home Assistant
-
+4. 目录结构
+<pre>
+zhijin-energy/
+├── README.md                          # 项目说明文档
+├── hacs.json                          # HACS安装配置
+└── custom_components/
+    └── zhijin_energy/
+        ├── manifest.json              # 组件清单（域名、依赖、版本）
+        ├── const.py                   # 常量定义（API地址、属性映射表）
+        ├── api.py                     # HTTP API 封装（请求/响应处理）
+        ├── coordinator.py             # 数据更新协调器（30秒轮询）
+        ├── websocket.py               # WebSocket 实时推送客户端
+        ├── config_flow.py             # 配置流程（UI配置界面）
+        ├── __init__.py                # 组件入口（初始化/卸载）
+        ├── sensor.py                  # 传感器实体（电压/电流/温度/电量）
+        ├── binary_sensor.py           # 二进制传感器（太阳能/负载/风力状态）
+        ├── number.py                  # 数值调节实体（电压阈值/定时时间）
+        ├── select.py                  # 下拉选择实体（电池类型/输出模式）
+        ├── services.yaml              # 服务定义（设置参数/刷新数据）
+        └── strings.json               # 翻译文件（配置界面文本）
+</pre>
 ## 配置
 
 1. 进入 **配置 → 设备与服务 → 添加集成**
