@@ -22,7 +22,8 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up binary sensors."""
-    coordinator: ZhijinEnergyCoordinator = hass.data[DOMAIN][entry.entry_id]
+    entry_data = hass.data[DOMAIN][entry.entry_id]
+    coordinator: ZhijinEnergyCoordinator = entry_data['coordinator']
 
     sensors = []
     for key in BINARY_KEYS:

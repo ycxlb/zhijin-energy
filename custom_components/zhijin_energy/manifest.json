@@ -1,11 +1,11 @@
 {
   "domain": "zhijin_energy",
-  "name": "Zhijin Energy Solar Controller",
-  "codeowners": ["@ycxlb"],
+  "name": "枝晋能源太阳能控制器",
+  "codeowners": ["@yourname"],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://github.com/ycxlb/zhijin-energy",
+  "documentation": "https://github.com/yourname/ha-zhijin-energy",
   "iot_class": "cloud_push",
   "requirements": ["aiohttp>=3.8.0", "websockets>=11.0"],
-  "version": "2026.5.6"
+  "version": "1.0.0"
 }

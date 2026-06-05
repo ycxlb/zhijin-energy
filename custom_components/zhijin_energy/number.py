@@ -24,7 +24,8 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up number entities."""
-    coordinator: ZhijinEnergyCoordinator = hass.data[DOMAIN][entry.entry_id]
+    entry_data = hass.data[DOMAIN][entry.entry_id]
+    coordinator: ZhijinEnergyCoordinator = entry_data['coordinator']
 
     numbers = []
     for key in NUMBER_KEYS:

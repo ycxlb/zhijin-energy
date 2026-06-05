@@ -77,7 +77,7 @@ class ZhijinEnergyWebSocket:
 
                 async with websockets.connect(
                     WS_URL,
-                    extra_headers={
+                    additional_headers={
                         "Origin": "http://localhost",
                         "User-Agent": "okhttp/3.12.11",
                     },
