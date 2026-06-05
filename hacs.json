@@ -1,5 +1,7 @@
 {
-  "name": "枝晋能源太阳能控制器",
+  "name": "Zhijin Energy Solar Controller",
   "content_in_root": false,
-  "homeassistant": "2024.1.0"
+  "homeassistant": "2024.1.0",
+  "render_readme": true,
+  "zip_release": false
 }
