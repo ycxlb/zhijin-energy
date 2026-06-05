@@ -33,15 +33,31 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     api = ZhijinEnergyAPI(session, entry.data[CONF_TOKEN])
 
     # 获取设备信息
-    device_info = await api.get_device_info(entry.data["device_id"])
+    try:
+        device_info = await api.get_device_info(entry.data["device_id"])
+        _LOGGER.info("Device info: %s", device_info.get("name"))
+    except Exception as err:
+        _LOGGER.error("Failed to get device info: %s", err)
+        device_info = {"name": "Unknown", "mac": "unknown", "online": 0}
 
     # 创建协调器
     coordinator = ZhijinEnergyCoordinator(
         hass, api, entry.data["device_id"], device_info
     )
 
-    # 设置协调器（启动 WebSocket）
-    await coordinator.async_setup()
+    # 首次刷新（必须在 WebSocket 启动前完成，确保数据存在）
+    try:
+        await coordinator.async_config_entry_first_refresh()
+        _LOGGER.info("First refresh completed, properties: %s", 
+                     len(coordinator.data.get("properties", {})))
+    except Exception as err:
+        _LOGGER.error("First refresh failed: %s", err)
+
+    # 启动 WebSocket（在首次刷新之后）
+    try:
+        await coordinator.async_setup()
+    except Exception as err:
+        _LOGGER.error("WebSocket setup failed: %s", err)
 
     # 创建历史数据追踪器
     history = HistoryTracker(
@@ -53,19 +69,25 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     await history.async_load()
 
     # 首次拉取历史数据
-    result = await history.fetch_and_store()
-    _LOGGER.info("Initial history fetch: %s", result)
+    try:
+        result = await history.fetch_and_store()
+        _LOGGER.info("Initial history fetch: %s", result)
+    except Exception as err:
+        _LOGGER.error("Initial history fetch failed: %s", err)
 
     # 定时拉取历史数据任务
     async def _fetch_history_periodic(now):
         """Periodic history fetch."""
-        result = await history.fetch_and_store()
-        if result.get("new_records", 0) > 0:
-            _LOGGER.debug(
-                "History updated: %s new records, last_id=%s",
-                result["new_records"],
-                result["last_log_id"],
-            )
+        try:
+            result = await history.fetch_and_store()
+            if result.get("new_records", 0) > 0:
+                _LOGGER.debug(
+                    "History updated: %s new records, last_id=%s",
+                    result["new_records"],
+                    result["last_log_id"],
+                )
+        except Exception as err:
+            _LOGGER.error("Periodic history fetch failed: %s", err)
 
     history_unsub = async_track_time_interval(
         hass,
@@ -114,7 +136,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         days = call.data.get("days", 7)
         stats = history.get_charge_discharge_summary(days)
         _LOGGER.info("History stats (%s days): %s", days, stats)
-        # 可以在这里触发一个事件，让自动化接收数据
         hass.bus.fire(f"{DOMAIN}_history_stats", stats)
 
     hass.services.async_register(DOMAIN, "set_property", handle_set_property)

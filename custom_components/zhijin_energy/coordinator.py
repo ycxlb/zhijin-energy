@@ -7,13 +7,7 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .api import ZhijinEnergyAPI, APIError
-from .const import (
-    DOMAIN,
-    SCAN_INTERVAL,
-    PROPERTY_DEFINITIONS,
-    WS_ACTION_INFO_ONE,
-    WS_ACTION_INFO_TWO,
-)
+from .const import DOMAIN, SCAN_INTERVAL, PROPERTY_DEFINITIONS, WS_ACTION_INFO_ONE, WS_ACTION_INFO_TWO
 from .websocket import ZhijinEnergyWebSocket
 
 _LOGGER = logging.getLogger(__name__)
@@ -39,7 +33,7 @@ class ZhijinEnergyCoordinator(DataUpdateCoordinator):
         self.device_id = device_id
         self._device_info = device_info
         self._last_log_id = 0
-        self._config_map = {}  # unikey -> {property_id, ...}
+        self._config_map = {}  # unikey -> config info
         self._ws = None
         self._ws_connected = False
 
@@ -63,10 +57,7 @@ class ZhijinEnergyCoordinator(DataUpdateCoordinator):
 
     async def async_setup(self) -> None:
         """Setup coordinator and start WebSocket."""
-        # 首次 HTTP 拉取获取完整数据
-        await self.async_config_entry_first_refresh()
-
-        # 启动 WebSocket
+        # 启动 WebSocket（不在这里刷新，由 __init__.py 控制）
         mac = self._data["device_info"].get("mac")
         if mac:
             self._ws = ZhijinEnergyWebSocket(mac, self._on_ws_data)
