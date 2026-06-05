@@ -1,0 +1,18 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "枝晋能源太阳能控制器",
+        "description": "请输入您的API Token和设备ID",
+        "data": {
+          "token": "API Token",
+          "device_id": "设备ID"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "认证失败，请检查Token",
+      "device_not_found": "设备未找到"
+    }
+  }
+}

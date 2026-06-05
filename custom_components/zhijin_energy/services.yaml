@@ -1,0 +1,72 @@
+# 枝晋能源服务定义
+
+set_property:
+  name: 设置设备参数
+  description: 设置太阳能控制器的配置参数
+  fields:
+    device_id:
+      name: 设备ID
+      description: 太阳能控制器设备ID
+      required: true
+      selector:
+        text:
+    property:
+      name: 参数名
+      description: 要设置的参数名称
+      required: true
+      selector:
+        select:
+          options:
+            - cm_voltage
+            - jz_voltage
+            - hf_out_voltage
+            - timing_hour
+            - timing_min
+            - battery_type
+            - output_mode
+            - fz_output
+            - voltage_monitor_selected
+    value:
+      name: 参数值
+      description: 参数的新值
+      required: true
+      selector:
+        text:
+
+refresh_data:
+  name: 刷新数据
+  description: 立即从云端刷新设备数据
+  fields:
+    device_id:
+      name: 设备ID
+      description: 要刷新的设备ID
+      required: false
+      selector:
+        text:
+
+fetch_history:
+  name: 拉取历史数据
+  description: 手动拉取远程历史日志数据
+  fields:
+    device_id:
+      name: 设备ID
+      description: 要拉取历史数据的设备ID
+      required: false
+      selector:
+        text:
+
+get_history_stats:
+  name: 获取历史统计
+  description: 获取最近N天的充放电统计数据
+  fields:
+    days:
+      name: 天数
+      description: 统计最近多少天的数据
+      required: false
+      default: 7
+      selector:
+        number:
+          min: 1
+          max: 30
+          step: 1
+          mode: slider
